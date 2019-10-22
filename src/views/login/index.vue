@@ -167,6 +167,7 @@ export default {
     }
       var _this = this
       _this.util.request(_this, '/tools/getsture').then(function(data){
+          console.log(data);
           if(data.stat == 1){
               _this.loginForm.ttamp = data.data.ttamp
               _this.loginForm.sture = data.data.sture
@@ -213,17 +214,33 @@ export default {
             'pwd': md5.hexMD5(_this.loginForm.password),
           };
           _this.util.request(_this, '/login/logining', 'post', param).then(function (data) {
+              console.log(data);
             _this.loading = false
             if (data.stat == 1) {
               data.data.userinfo.ctime = parseInt(new Date().getTime() / 1000);
               _this.util.setLocal('token', data.data.token);
-              _this.util.setLocal('userinfo', data.data.dlinfo);
+            //  _this.util.setLocal('userinfo', data.data.userinfo);
               // 删除openid
               _this.util.removeLocal('openid');
               // _this.$toast('登录成功');
               _this.$message.success('登录成功');
+              console.log(data.data.token);
+              // console.log(data.data.roles);
+              // console.log(data.data.purview_arr);
+             _this.$store.commit('user/SET_TOKEN', data.data.token)
+              // _this.$store.commit('user/SET_USERINFO',data.data.userinfo)
+              // _this.$store.commit('user/SET_ROLES', data.data.roles)
+              // _this.$store.commit('user/SET_PURVIEW', data.data.purview)
+              // _this.$store.commit('user/SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+              // _this.$store.commit('user/SET_INTRODUCTION', 'vuex简单介绍一下')
+              //   _this.$store.commit('user/SET_USERNAME',data.data.name)
+
+            //  console.log(_this.$store.state.user.username);
+             // console.log(_this.$store.state.user.userinfo);
+          //    _this.$store.commit('SET_TOKEN',_this.$store.state ,data.data.token)
+             // _this.$store.dispatch('setInfo', data.data.token, data.data.role, data.data.purview_arr)
               console.log(_this.redirect);
-              _this.$router.push({ path: _this.redirect || '/' });
+             _this.$router.push({ path: _this.redirect || '/' });
             } else if (data.stat == 0) {
               _this.$message.error(data.msg);
             } else {

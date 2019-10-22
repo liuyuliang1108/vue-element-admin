@@ -4,11 +4,13 @@ const getters = {
   device: state => state.app.device,
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
-  token: state => state.user.token,
   avatar: state => state.user.avatar,
-  name: state => state.user.name,
   introduction: state => state.user.introduction,
+  token: state => state.user.token,
   roles: state => state.user.roles,
+  purview: state => state.user.purview,
+  username: state => state.user.username,
+  userinfo: state => state.user.userinfo,
   permission_routes: state => state.permission.routes,
   errorLogs: state => state.errorLog.logs
 }

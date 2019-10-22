@@ -19,13 +19,21 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'roles'
+      'roles',
+      'name',
+      'purview',
     ])
   },
   created() {
+    console.log(1);
+    console.log(this);
+
     if (!this.roles.includes('admin')) {
       this.currentRole = 'editorDashboard'
     }
-  }
+  },
+  mounted() {
+    var _this = this
+  },
 }
 </script>

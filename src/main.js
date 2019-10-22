@@ -18,7 +18,7 @@ import './permission' // permission control
 import './utils/error-log' // error log
 import { Message } from 'element-ui'
 import {
-  Icon,
+ // Icon,
   PullRefresh,
   List,
   Dialog,
@@ -35,8 +35,9 @@ import {
   Toast,
 } from "vant";
 
+Vue.use(store);
 Vue.use(Message);
-Vue.use(Icon);
+//Vue.use(Icon);
 Vue.use(PullRefresh);
 Vue.use(List);
 Vue.use(Dialog);
@@ -81,6 +82,7 @@ Vue.prototype.util = util
 Vue.prototype.axios = axios;
 Vue.prototype.toast = Toast;
 Vue.prototype.message = Message;
+Vue.prototype.store = store;
 new Vue({
   el: '#app',
   router,

@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Element Admin' // page title
+const name = defaultSettings.title || '新零售管理系统' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -31,7 +31,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     open: true,
-     host: '192.168.0.101',
+     host: '192.168.0.121',
     //  host: '192.168.0.105',
     // host: '192.168.0.102',
     // host: "192.168.0.131",

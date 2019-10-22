@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const appFwkey='2587l6QEQ3mPHJZgYTAznd2sN17mlBQZ4CgMNdYoEZJ3';
 const wxappid='wx62f265fe41b0f080';
 const appMode='nvlang';
@@ -5,6 +7,7 @@ const picURL='';
 const appUrl='http://nvlang.baibangma.com';
 //const appUrl='http://www.nvlang.coma/';
 const apiUrl='/vueapi';
+const playform='vueapi';
 
 import utilmd5 from './md5';
 
@@ -55,20 +58,19 @@ function isEmpty(v) {
 // AJAX 请求
 // util.request(url,type,date)
 function request(_this, url, method = 'GET', data = {}) {
-  
 	// if(method.toLowerCase()=='post'){
 	// 	var contenttype='application/x-www-form-urlencoded; charset=UTF-8';
 	// }else{
 	// 	var contenttype='application/json; charset=UTF-8';
 	// }
-	console.log(1);
+    //请求头
 	let header = {
 		// 'content-type': contenttype,
 		'X-Klapi-Fwkey': appFwkey,
-		'X-Klapi-Pfalform': 'vueapi',
+		'X-Klapi-Pfalform': playform,
 		'X-Klapi-Ver': '1.0.0'
 	};
-
+//let 局部变量 只在let命令所在代码块有效
 	let token = getLocal('token') || '';
 	if(!isEmpty(token)){
 		header['X-Klapi-Authorization'] = token
@@ -120,7 +122,26 @@ function request(_this, url, method = 'GET', data = {}) {
 	});
 	
 }
+export function getToken() {
 
+	let token = getLocal('token') || '';
+	console.log(token);
+	if(isEmpty(token)){
+		removeLocal('token');
+		return false;
+	}else{
+		return true;
+	}
+}
+export function getLocalToken() {
+	let token = getLocal('token') || '';
+		return token;
+}
+export function logoutToken() {
+		removeLocal('token');
+		removeLocal('userinfo');
+	return true;
+}
 
 //是否已授权登录 未登陆则删除token和userinfo信息
 function isLogin() {
@@ -149,7 +170,7 @@ function setLocal(key, value) {
 }
 //取出数据
 function getLocal(key) {
-	return JSON.parse(localStorage.getItem(key));
+		return JSON.parse(localStorage.getItem(key))
 }
 // 删除数据
 function removeLocal(key) {
@@ -369,6 +390,7 @@ function base64toFile(dataurl, filename) {//将base64转换为文件
     return new File([u8arr], filename, {type:mime});
 }
 
+//注册全局变量及全局方法
 export default{
 	appFwkey: appFwkey,
 	appMode: appMode,
